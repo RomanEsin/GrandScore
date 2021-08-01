@@ -14,38 +14,57 @@ struct StartView: View {
     @State var homePitcher = ""
     @State var awayPitcher = ""
 
+    @State var homeTeamName = ""
+    @State var awayTeamName = ""
+
     @State var nextScreenActive = false
 
     var body: some View {
         VStack(alignment: .center) {
             Text("Напишите названия команд")
-                .font(.largeTitle.bold())
+                .font(.title.bold())
                 .multilineTextAlignment(.center)
                 .padding(.top, 32)
             Spacer()
             VStack(alignment: .center) {
-                TextField("Хозяева", text: $teamStatus.homeTeamName)
-                    .multilineTextAlignment(.center)
-                    .font(.title.bold())
-                TextField("Номер питчера", text: $homePitcher)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.center)
-                    .font(.title2.bold())
+                VStack(alignment: .center) {
+                    TextField("Хозяева", text: $homeTeamName)
+                        .multilineTextAlignment(.center)
+                        .font(.title.bold())
+                    TextField("Номер питчера", text: $homePitcher)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.center)
+                        .font(.title2.bold())
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(16)
+                .padding()
 
-                Divider()
-                    .padding(.vertical, 32)
+//                Divider()
+//                    .padding(.vertical, 32)
 
-                TextField("Гости", text: $teamStatus.awayTeamName)
-                    .multilineTextAlignment(.center)
-                    .font(.title.bold())
-                TextField("Номер питчера", text: $awayPitcher)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.center)
-                    .font(.title2.bold())
+                VStack(alignment: .center) {
+                    TextField("Гости", text: $awayTeamName)
+                        .multilineTextAlignment(.center)
+                        .font(.title.bold())
+                    TextField("Номер питчера", text: $awayPitcher)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.center)
+                        .font(.title2.bold())
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(16)
+                .padding()
             }
             Spacer()
 
             Button {
+                teamStatus.homeTeamName = homeTeamName.trimmingCharacters(in: .whitespacesAndNewlines)
+                teamStatus.awayTeamName = awayTeamName.trimmingCharacters(in: .whitespacesAndNewlines)
                 teamStatus.homeTeam.currentPitcher = homePitcher
                 teamStatus.awayTeam.currentPitcher = awayPitcher
                 
@@ -61,13 +80,14 @@ struct StartView: View {
                     .padding(.bottom, 32)
             }
             .disabled(
-                teamStatus.homeTeamName.isEmpty || teamStatus.awayTeamName.isEmpty ||
+                homeTeamName.isEmpty || awayTeamName.isEmpty ||
                 homePitcher.isEmpty || awayPitcher.isEmpty
             )
 
 
-            NavigationLink(destination: ContentView(teamStatus: teamStatus), isActive: $nextScreenActive) { EmptyView() }
-            .isDetailLink(false)
+            NavigationLink(destination: ContentView().environmentObject(teamStatus),
+                           isActive: $nextScreenActive) { EmptyView() }
+                           .isDetailLink(false)
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .navigationBarTitle("Новая игра")

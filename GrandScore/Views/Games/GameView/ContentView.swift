@@ -25,8 +25,19 @@ class Haptic {
     }
 }
 
+struct HiddenNavBarOptional: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 15.0, *) {
+            content
+                .navigationBarHidden(true)
+        } else {
+            content
+        }
+    }
+}
+
 struct ContentView: View {
-    @ObservedObject var teamStatus: TeamStatus
+    @EnvironmentObject var teamStatus: TeamStatus
     
     @State var isSettingNewName = false
     
@@ -252,6 +263,7 @@ struct ContentView: View {
 //        .navigationBarTitle("\(teamStatus.homeTeamName) - \(teamStatus.awayTeamName)")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .modifier(HiddenNavBarOptional())
     }
 }
 

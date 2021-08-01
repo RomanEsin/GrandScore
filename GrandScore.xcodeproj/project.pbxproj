@@ -72,7 +72,7 @@
 		F13A963D26B49A1A00B90421 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F13A964026B49A3700B90421 /* Helpers */,
+				F13A964826B5626400B90421 /* Competitions */,
 				F13A963C26B499FE00B90421 /* Games */,
 			);
 			path = Views;
@@ -117,6 +117,13 @@
 			path = GameView;
 			sourceTree = "<group>";
 		};
+		F13A964826B5626400B90421 /* Competitions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Competitions;
+			sourceTree = "<group>";
+		};
 		F13FCABE263E95AE0006A345 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +143,7 @@
 		F13FCAC9263E95AE0006A345 /* GrandScore */ = {
 			isa = PBXGroup;
 			children = (
+				F13A964026B49A3700B90421 /* Helpers */,
 				F13A964326B49A5E00B90421 /* Core */,
 				F13A963D26B49A1A00B90421 /* Views */,
 				F13A964426B49A6700B90421 /* Models */,

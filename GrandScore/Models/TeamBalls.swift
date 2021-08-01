@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import os
 
 struct StrikeBalls: Codable {
     let pitcherName: String
     var strikes: Int
     var balls: Int
-//    var other: Int
     var outs: Int
     var totalCount: Int
 }
@@ -25,6 +25,7 @@ protocol TeamBallsDelegate: AnyObject {
 }
 
 class TeamBalls: ObservableObject {
+    private let logger = Logger(subsystem: "grandscore", category: "TeamBalls")
     private var skipObservers = false
     weak var delegate: TeamBallsDelegate?
 
@@ -36,16 +37,12 @@ class TeamBalls: ObservableObject {
     }
 
     @Published var currentPitcher = "" {
-//        willSet {
-//        }
         didSet {
             self.saveStats()
             skipObservers = true
             self.totalCount = 0
             self.other = 0
             skipObservers = false
-//            self.strikes = 0
-//            self.balls = 0
         }
     }
 
@@ -75,9 +72,6 @@ class TeamBalls: ObservableObject {
     }
 
     @Published var other = 0 {
-        willSet {
-//            totalCount += newValue - other
-        }
         didSet {
             guard !skipObservers else { return }
             Haptic.shared.click()
@@ -129,7 +123,6 @@ class TeamBalls: ObservableObject {
                     StrikeBalls(pitcherName: currentPitcher,
                                 strikes: 0,
                                 balls: 0,
-//                                other: 0,
                                 outs: 0,
                                 totalCount: 0)
                 )
@@ -137,14 +130,12 @@ class TeamBalls: ObservableObject {
             
             var lastIndex = self.savedStats[inning]!.count - 1
             self.savedStats[inning]![lastIndex].totalCount = self.totalCount
-//            self.savedStats[inning]![lastIndex].other += self.
 
             if self.savedStats[inning]![lastIndex].pitcherName != currentPitcher {
                 self.savedStats[inning]!.append(
                     StrikeBalls(pitcherName: currentPitcher,
                                 strikes: 0,
                                 balls: 0,
-//                                other: 0,
                                 outs: 0,
                                 totalCount: 0)
                 )
@@ -160,19 +151,19 @@ class TeamBalls: ObservableObject {
             let encoder = JSONEncoder()
             let savedData = try encoder.encode(self.savedStats)
             let key = "stats-\(teamName ?? "nil")"
-            print("SAVE KEY: \(key)")
+            logger.log("SAVE KEY: \(key)")
             UserDefaults.standard.set(savedData, forKey: key)
             UserDefaults.standard.synchronize()
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
 
-        print(savedStats)
+        logger.log("SAVED KEY: \(self.savedStats)")
     }
 
     init(key: String? = nil) {
         let key = key ?? "stats-\(delegate?.getTeamName() ?? "nil")"
-        print("INIT KEY: \(key)")
+        logger.log("INIT KEY: \(key)")
         guard let savedData = UserDefaults.standard.data(forKey: key) else { return }
 
         do {
@@ -184,7 +175,6 @@ class TeamBalls: ObservableObject {
             let keys = savedStats.keys.map { Int($0)! }.sorted().map { String($0) }
             let lastPitcher = savedStats[keys.last!]!.last!.pitcherName
             var lastOuts = 0
-//            var lastOther = 0
 
             keys.forEach { key in
                 let last = savedStats[key]!.last!
@@ -192,20 +182,18 @@ class TeamBalls: ObservableObject {
 
                 if lastPitcher == lastPitcherName {
                     lastOuts = last.outs
-//                    lastOther = last.other
                     totalCount += last.strikes + last.balls // + last.other
                 }
 
             }
 
-//            self.other = lastOther
             self.outs = lastOuts
             self.currentPitcher = lastPitcher
             self.totalCount = totalCount
 
-            print(savedStats.sorted(by: { Int($0.key)! < Int($1.key)! }).map { "\($0.key) - \($0.value)" })
+            // print(savedStats.sorted(by: { Int($0.key)! < Int($1.key)! }).map { "\($0.key) - \($0.value)" })
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
     }
 }

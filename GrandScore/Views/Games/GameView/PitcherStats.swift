@@ -117,9 +117,3 @@ struct PitcherStats: View {
         .navigationBarTitle("Статистика питчеров")
     }
 }
-
-//struct PitcherStats_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PitcherStats()
-//    }
-//}

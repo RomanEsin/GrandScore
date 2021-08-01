@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import os
 
 struct TeamStatusCodable: Codable {
     let id: String
@@ -22,6 +23,8 @@ struct TeamStatusCodable: Codable {
 
 class TeamStatus: ObservableObject, Identifiable {
     var id = UUID().uuidString
+
+    let logger = Logger(subsystem: "grandscore", category: "TeamStatus")
 
     @Published var homeTeam: TeamBalls
     @Published var awayTeam: TeamBalls
@@ -104,14 +107,14 @@ extension TeamStatus: TeamBallsDelegate {
                     UserDefaults.standard.set(data, forKey: "allGames")
                 }
                 
-                print(allGames)
+                logger.log("All games: \(allGames)")
             } else {
                 let data = try encoder.encode([stats])
                 UserDefaults.standard.set(data, forKey: "allGames")
             }
             UserDefaults.standard.synchronize()
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
     }
 

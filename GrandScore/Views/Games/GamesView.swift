@@ -6,6 +6,13 @@
 //
 
 import SwiftUI
+import os
+
+extension View {
+    var logger: Logger {
+        Logger(subsystem: "grandscore", category: "Views")
+    }
+}
 
 struct GamesView: View {
     @State var allGames: [TeamStatus] = []
@@ -18,7 +25,7 @@ struct GamesView: View {
                         .font(.title3.bold())
                 } else {
                     ForEach(allGames) { status in
-                        NavigationLink(destination: ContentView(teamStatus: status)) {
+                        NavigationLink(destination: ContentView().environmentObject(status)) {
                             HStack {
                                 Text(status.homeTeamName)
                                     .bold()
@@ -72,7 +79,7 @@ struct GamesView: View {
             let gamesData = try encoder.encode(allGamesCodable)
             UserDefaults.standard.set(gamesData, forKey: "allGames")
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
     }
 
@@ -82,7 +89,6 @@ struct GamesView: View {
         do {
             let games = try decoder.decode([TeamStatusCodable].self, from: data)
             self.allGames = games.map {
-                print($0)
                 return TeamStatus(
                     id: $0.id,
                     homeTeam: .init(key: $0.homeTeam),
@@ -94,9 +100,9 @@ struct GamesView: View {
                 )
             }
 
-            print(allGames)
+            logger.log("All games: \(allGames)")
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
     }
 }
