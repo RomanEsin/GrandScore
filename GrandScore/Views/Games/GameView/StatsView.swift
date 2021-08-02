@@ -50,7 +50,7 @@ struct StatsView: View {
                     }
                     .padding(.vertical, 12)
                     .padding(.horizontal)
-                    .background(Color(UIColor.secondarySystemBackground))
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(16)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -58,7 +58,6 @@ struct StatsView: View {
             }
             .padding(.horizontal)
         }
-        .listStyle(InsetGroupedListStyle())
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

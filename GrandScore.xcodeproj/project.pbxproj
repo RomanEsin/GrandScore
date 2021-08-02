@@ -19,8 +19,15 @@
 		F13FCAD1263E95AF0006A345 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F13FCAD0263E95AF0006A345 /* Assets.xcassets */; };
 		F13FCAD4263E95AF0006A345 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F13FCAD3263E95AF0006A345 /* Preview Assets.xcassets */; };
 		F13FCAD7263E95AF0006A345 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F13FCAD5263E95AF0006A345 /* LaunchScreen.storyboard */; };
+		F155B45126B83AE00002BB3A /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F155B45026B83AE00002BB3A /* Chart.swift */; };
+		F155B45326B83AFF0002BB3A /* PitcherThrowGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F155B45226B83AFF0002BB3A /* PitcherThrowGraph.swift */; };
+		F155B45626B859230002BB3A /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = F155B45526B859230002BB3A /* Field.swift */; };
+		F176EAB826B6CEB100FD5C32 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176EAB726B6CEB100FD5C32 /* Haptic.swift */; };
+		F176EABA26B6D03C00FD5C32 /* PitcherThrowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176EAB926B6D03C00FD5C32 /* PitcherThrowsView.swift */; };
 		F17D732226B06B1C005684C1 /* PitcherStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17D732126B06B1C005684C1 /* PitcherStats.swift */; };
 		F1A7D19D26B17E0800D84E55 /* GraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A7D19C26B17E0800D84E55 /* GraphsView.swift */; };
+		F1B66F9926B6938400F9263E /* CompetitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B66F9826B6938400F9263E /* CompetitionsView.swift */; };
+		F1B66F9B26B6939000F9263E /* Competition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B66F9A26B6939000F9263E /* Competition.swift */; };
 		F1DDB0BB26AF479E0011280A /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DDB0BA26AF479E0011280A /* StartView.swift */; };
 		F1DDB0BF26AFDDBF0011280A /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DDB0BE26AFDDBF0011280A /* GamesView.swift */; };
 		F1DDB0C126B0089F0011280A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DDB0C026B0089F0011280A /* StatsView.swift */; };
@@ -41,8 +48,15 @@
 		F13FCAD3263E95AF0006A345 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F13FCAD6263E95AF0006A345 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F13FCAD8263E95AF0006A345 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F155B45026B83AE00002BB3A /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		F155B45226B83AFF0002BB3A /* PitcherThrowGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitcherThrowGraph.swift; sourceTree = "<group>"; };
+		F155B45526B859230002BB3A /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		F176EAB726B6CEB100FD5C32 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		F176EAB926B6D03C00FD5C32 /* PitcherThrowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitcherThrowsView.swift; sourceTree = "<group>"; };
 		F17D732126B06B1C005684C1 /* PitcherStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitcherStats.swift; sourceTree = "<group>"; };
 		F1A7D19C26B17E0800D84E55 /* GraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphsView.swift; sourceTree = "<group>"; };
+		F1B66F9826B6938400F9263E /* CompetitionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionsView.swift; sourceTree = "<group>"; };
+		F1B66F9A26B6939000F9263E /* Competition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Competition.swift; sourceTree = "<group>"; };
 		F1DDB0BA26AF479E0011280A /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		F1DDB0BE26AFDDBF0011280A /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		F1DDB0C026B0089F0011280A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -82,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				F13A964126B49A4200B90421 /* VisualEffectView.swift */,
+				F176EAB726B6CEB100FD5C32 /* Haptic.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -98,6 +113,7 @@
 		F13A964426B49A6700B90421 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1B66F9A26B6939000F9263E /* Competition.swift */,
 				F10FA0D1263EC78900CDE8BE /* TeamStatus.swift */,
 				F10FA0CF263EC77600CDE8BE /* TeamBalls.swift */,
 			);
@@ -107,12 +123,14 @@
 		F13A964526B49A7300B90421 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
+				F13FCACE263E95AE0006A345 /* ContentView.swift */,
+				F176EAB926B6D03C00FD5C32 /* PitcherThrowsView.swift */,
+				F155B45426B858E50002BB3A /* Batter */,
 				F1DDB0C026B0089F0011280A /* StatsView.swift */,
 				F17D732126B06B1C005684C1 /* PitcherStats.swift */,
-				F13FCACE263E95AE0006A345 /* ContentView.swift */,
 				F13A963E26B49A2E00B90421 /* TeamsWillChangeView.swift */,
 				F13A964626B49AA400B90421 /* ChangePitcherView.swift */,
-				F1A7D19C26B17E0800D84E55 /* GraphsView.swift */,
+				F155B44F26B83AC80002BB3A /* Graphs */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -120,6 +138,7 @@
 		F13A964826B5626400B90421 /* Competitions */ = {
 			isa = PBXGroup;
 			children = (
+				F1B66F9826B6938400F9263E /* CompetitionsView.swift */,
 			);
 			path = Competitions;
 			sourceTree = "<group>";
@@ -143,8 +162,8 @@
 		F13FCAC9263E95AE0006A345 /* GrandScore */ = {
 			isa = PBXGroup;
 			children = (
-				F13A964026B49A3700B90421 /* Helpers */,
 				F13A964326B49A5E00B90421 /* Core */,
+				F13A964026B49A3700B90421 /* Helpers */,
 				F13A963D26B49A1A00B90421 /* Views */,
 				F13A964426B49A6700B90421 /* Models */,
 				F13FCAD0263E95AF0006A345 /* Assets.xcassets */,
@@ -162,6 +181,24 @@
 				F13FCAD3263E95AF0006A345 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F155B44F26B83AC80002BB3A /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				F1A7D19C26B17E0800D84E55 /* GraphsView.swift */,
+				F155B45226B83AFF0002BB3A /* PitcherThrowGraph.swift */,
+				F155B45026B83AE00002BB3A /* Chart.swift */,
+			);
+			path = Graphs;
+			sourceTree = "<group>";
+		};
+		F155B45426B858E50002BB3A /* Batter */ = {
+			isa = PBXGroup;
+			children = (
+				F155B45526B859230002BB3A /* Field.swift */,
+			);
+			path = Batter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,20 +275,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F155B45126B83AE00002BB3A /* Chart.swift in Sources */,
 				F13FCACB263E95AE0006A345 /* AppDelegate.swift in Sources */,
 				F1A7D19D26B17E0800D84E55 /* GraphsView.swift in Sources */,
 				F13A964726B49AA400B90421 /* ChangePitcherView.swift in Sources */,
 				F13A963F26B49A2E00B90421 /* TeamsWillChangeView.swift in Sources */,
+				F155B45626B859230002BB3A /* Field.swift in Sources */,
 				F13FCACD263E95AE0006A345 /* SceneDelegate.swift in Sources */,
 				F1DDB0BF26AFDDBF0011280A /* GamesView.swift in Sources */,
 				F17D732226B06B1C005684C1 /* PitcherStats.swift in Sources */,
+				F1B66F9B26B6939000F9263E /* Competition.swift in Sources */,
 				F13FCACF263E95AE0006A345 /* ContentView.swift in Sources */,
+				F176EABA26B6D03C00FD5C32 /* PitcherThrowsView.swift in Sources */,
 				F1DDB0BB26AF479E0011280A /* StartView.swift in Sources */,
 				F13A964226B49A4200B90421 /* VisualEffectView.swift in Sources */,
 				F10FA0D0263EC77600CDE8BE /* TeamBalls.swift in Sources */,
 				F10FA0D2263EC78900CDE8BE /* TeamStatus.swift in Sources */,
+				F1B66F9926B6938400F9263E /* CompetitionsView.swift in Sources */,
 				F1DDB0C126B0089F0011280A /* StatsView.swift in Sources */,
+				F176EAB826B6CEB100FD5C32 /* Haptic.swift in Sources */,
 				F13A963826B4991200B90421 /* Gradients.swift in Sources */,
+				F155B45326B83AFF0002BB3A /* PitcherThrowGraph.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

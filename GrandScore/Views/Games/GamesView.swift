@@ -15,48 +15,46 @@ extension View {
 }
 
 struct GamesView: View {
+    var competition: Competition
     @State var allGames: [TeamStatus] = []
 
     var body: some View {
-        NavigationView {
-            List {
-                if allGames.isEmpty {
-                    Text("Нет сохраненных игр")
-                        .font(.title3.bold())
-                } else {
-                    ForEach(allGames) { status in
-                        NavigationLink(destination: ContentView().environmentObject(status)) {
-                            HStack {
-                                Text(status.homeTeamName)
-                                    .bold()
-                                Text(" - ")
-                                Text(status.awayTeamName)
-                                    .bold()
-                            }
+        List {
+            if allGames.isEmpty {
+                Text("Нет сохраненных игр")
+                    .font(.title3.bold())
+            } else {
+                ForEach(allGames) { status in
+                    NavigationLink(destination: ContentView().environmentObject(status)) {
+                        HStack {
+                            Text(status.homeTeamName)
+                                .bold()
+                            Text(" - ")
+                            Text(status.awayTeamName)
+                                .bold()
                         }
                     }
-                    .onDelete(perform: delete)
                 }
-
-                Section {
-                    NavigationLink(destination: StartView(teamStatus: .init(homeTeam: .init(), awayTeam: .init()))) {
-                        Text("Новая игра")
-                            .foregroundColor(.accentColor)
-                    }
-//                    .isDetailLink(false)
-                }
+                .onDelete(perform: delete)
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationBarTitle("Игры")
-            .navigationBarItems(trailing: Button(action: {
-                withAnimation {
-                    refreshData()
+
+            Section {
+                NavigationLink(destination: StartView(teamStatus: .init(homeTeam: .init(), awayTeam: .init()))) {
+                    Text("Новая игра")
+                        .foregroundColor(.accentColor)
                 }
-            }, label: {
-                Image(systemName: "arrow.triangle.2.circlepath")
-            }))
+                //                    .isDetailLink(false)
+            }
         }
-//        .navigationViewStyle(StackNavigationViewStyle())
+        .listStyle(InsetGroupedListStyle())
+        .navigationBarTitle(competition.title)
+        .navigationBarItems(trailing: Button(action: {
+            withAnimation {
+                refreshData()
+            }
+        }, label: {
+            Image(systemName: "arrow.triangle.2.circlepath")
+        }))
         .onAppear {
             refreshData()
         }
@@ -107,8 +105,8 @@ struct GamesView: View {
     }
 }
 
-struct GamesView_Previews: PreviewProvider {
-    static var previews: some View {
-        GamesView()
-    }
-}
+//struct GamesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GamesView()
+//    }
+//}

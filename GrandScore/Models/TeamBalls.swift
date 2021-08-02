@@ -10,10 +10,14 @@ import os
 
 struct StrikeBalls: Codable {
     let pitcherName: String
-    var strikes: Int
-    var balls: Int
-    var outs: Int
-    var totalCount: Int
+    var strikes: Int = 0
+    var balls: Int = 0
+    var outs: Int = 0
+    var totalCount: Int = 0
+
+    var strikeOuts: Int = 0
+    var basingBalls: Int = 0
+    var hits: Int = 0
 }
 
 protocol TeamBallsDelegate: AnyObject {
@@ -46,6 +50,11 @@ class TeamBalls: ObservableObject {
         }
     }
 
+    // Advanced stats:
+    @Published var strikeOuts = 0
+    @Published var basingBalls = 0
+    @Published var hits = 0
+
     @Published var strikes = 0 {
         willSet {
             totalCount += newValue - strikes
@@ -53,6 +62,7 @@ class TeamBalls: ObservableObject {
         didSet {
             guard !skipObservers else { return }
             if strikes == 3 {
+                strikeOuts += 1
                 outOrInField()
                 self.outs += 1
             }
@@ -66,6 +76,7 @@ class TeamBalls: ObservableObject {
         didSet {
             guard !skipObservers else { return }
             if balls == 4 {
+                basingBalls += 1
                 outOrInField()
             }
         }
@@ -104,6 +115,9 @@ class TeamBalls: ObservableObject {
         self.balls = 0
         self.strikes = 0
         self.other = 0
+        self.strikeOuts = 0
+        self.basingBalls = 0
+        self.hits = 0
         self.skipObservers = false
     }
 
@@ -120,11 +134,7 @@ class TeamBalls: ObservableObject {
 
             if self.savedStats[inning]!.isEmpty {
                 self.savedStats[inning]!.append(
-                    StrikeBalls(pitcherName: currentPitcher,
-                                strikes: 0,
-                                balls: 0,
-                                outs: 0,
-                                totalCount: 0)
+                    StrikeBalls(pitcherName: currentPitcher)
                 )
             }
             
@@ -133,14 +143,14 @@ class TeamBalls: ObservableObject {
 
             if self.savedStats[inning]![lastIndex].pitcherName != currentPitcher {
                 self.savedStats[inning]!.append(
-                    StrikeBalls(pitcherName: currentPitcher,
-                                strikes: 0,
-                                balls: 0,
-                                outs: 0,
-                                totalCount: 0)
+                    StrikeBalls(pitcherName: currentPitcher)
                 )
                 lastIndex = self.savedStats[inning]!.count - 1
             }
+
+            self.savedStats[inning]![lastIndex].strikeOuts = self.strikeOuts
+            self.savedStats[inning]![lastIndex].basingBalls = self.basingBalls
+            self.savedStats[inning]![lastIndex].hits = self.hits
 
             self.savedStats[inning]![lastIndex].outs = self.outs
             self.savedStats[inning]![lastIndex].strikes += self.strikes + self.other

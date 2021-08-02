@@ -6,24 +6,7 @@
 //
 
 import SwiftUI
-
-class Haptic {
-    static let shared: Haptic = Haptic()
-    var generator = UIImpactFeedbackGenerator(style: .light)
-    var heavyGenerator = UIImpactFeedbackGenerator(style: .heavy)
-    
-    func click() {
-        DispatchQueue.main.async {
-            self.generator.impactOccurred()
-        }
-    }
-    
-    func hardClick() {
-        DispatchQueue.main.async {
-            self.heavyGenerator.impactOccurred()
-        }
-    }
-}
+import MapKit
 
 struct HiddenNavBarOptional: ViewModifier {
     func body(content: Content) -> some View {
@@ -44,6 +27,9 @@ struct ContentView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @State var teamsWillChange = false
+
+    @State var isMapFullScreen = false
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var body: some View {
         ZStack {
@@ -95,106 +81,29 @@ struct ContentView: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.bottom)
 
-
-                        VStack(spacing: 0) {
-//                            Stepper("Всего Бросков: \(Text("\(teamStatus.currentTeam.totalCount)").foregroundColor(.secondary))",
-//                                    value: $teamStatus.currentTeam.totalCount) { changed in
-//                                if changed {
-//
-//                                }
-//                            }
-//                                    .font(.title3.bold())
-//
-//                            Divider()
-//                                .padding(.vertical, 8)
-
-                            Stepper("Страйки: \(Text("\(teamStatus.currentTeam.strikes)").foregroundColor(.red))",
-                                    value: $teamStatus.currentTeam.strikes, in: 0...3, step: 1) { changed in
-                                if changed {
-
-                                }
-                            }
-                                    .font(.title3.bold())
-                                    .padding(.bottom, 12)
-
-                            Stepper("Болы: \(Text("\(teamStatus.currentTeam.balls)").foregroundColor(.green))",
-                                    value: $teamStatus.currentTeam.balls, in: 0...4, step: 1) { changed in
-                                if changed {
-
-                                }
-                            }
-                                    .font(.title3.bold())
-                                    .padding(.bottom, 12)
-
-                            VStack {
-                                Button {
-                                    $teamStatus.currentTeam.totalCount.wrappedValue += 1
-                                    $teamStatus.currentTeam.other.wrappedValue += 1
-                                    $teamStatus.currentTeam.wrappedValue.outOrInField()
-                                } label: {
-                                    Text("Удар")
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .background(Color(UIColor.secondarySystemFill))
-                                        .cornerRadius(8)
-                                }
-                                .frame(maxWidth: .infinity)
-
-                                HStack {
-                                    Button {
-                                        let balls = $teamStatus.currentTeam.balls.wrappedValue + 1
-                                        if balls < 4 {
-                                            $teamStatus.currentTeam.balls.wrappedValue = balls
-                                            $teamStatus.currentTeam.wrappedValue.outOrInField()
-                                        } else {
-                                            $teamStatus.currentTeam.balls.wrappedValue = balls
-                                        }
-                                    } label: {
-                                        Text("HBP")
-                                            .frame(maxWidth: .infinity)
-                                            .padding(.vertical, 8)
-                                            .background(Color(UIColor.secondarySystemFill))
-                                            .cornerRadius(8)
-                                    }
-                                    .frame(maxWidth: .infinity)
-
-                                    Button {
-                                        if $teamStatus.currentTeam.strikes.wrappedValue < 2 {
-                                            $teamStatus.currentTeam.strikes.wrappedValue += 1
-                                        } else {
-                                            $teamStatus.currentTeam.totalCount.wrappedValue += 1
-                                            $teamStatus.currentTeam.other.wrappedValue += 1
-                                        }
-                                    } label: {
-                                        Text("Фал бол")
-                                            .frame(maxWidth: .infinity)
-                                            .padding(.vertical, 8)
-                                            .background(Color(UIColor.secondarySystemFill))
-                                            .cornerRadius(8)
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                }
-                            }
-//                            .padding(.bottom, 12)
-
-                            Divider()
-                                .padding(.vertical, 8)
-
-                            Stepper("Ауты: \(Text("\(teamStatus.currentTeam.outs)").foregroundColor(.red))",
-                                    value: $teamStatus.currentTeam.outs, in: 0...3, step: 1) { changed in
-                                if changed {
-
-                                }
-                            }
-                                    .font(.title3.bold())
-                        }
-                        .padding()
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .cornerRadius(16)
+                        PitcherThrowsView()
+                            .environmentObject(teamStatus)
+                            .padding()
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(16)
                     }
                     .padding(.horizontal)
+
+//                    VStack {
+//                        ZStack(alignment: .topTrailing) {
+//                            Field(playersInField: .constant([
+//                                .init()
+//                            ]))
+//                                .padding(50)
+//                        }
+//                    }
+//                    .frame(height: isMapFullScreen ? UIScreen.main.bounds.height : 220)
+//                    .frame(maxWidth: .infinity)
+//                    .padding(12)
+//                    .background(Color(UIColor.secondarySystemGroupedBackground))
+//                    .cornerRadius(16)
+//                    .padding(.horizontal)
 
                     if teamStatus.currentInning >= 2 {
                         GraphsView(teamStatus: teamStatus)
